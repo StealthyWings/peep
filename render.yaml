@@ -1,0 +1,23 @@
+# Render Blueprint: deploys the app + Flock server as one Node web service.
+# New > Blueprint in the Render dashboard, point it at this repo, done.
+#
+# The free plan's disk is wiped on every deploy/restart, so flocks reset.
+# To keep them, switch to the "starter" plan and uncomment the disk below.
+services:
+  - type: web
+    name: peep
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run setup && npm run build
+    startCommand: node server/index.mjs
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22.14.0"
+      - key: PEEP_DB
+        value: ./peep.db
+    #   value: /var/data/peep.db
+    # disk:
+    #   name: flock-data
+    #   mountPath: /var/data
+    #   sizeGB: 1

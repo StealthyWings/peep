@@ -1,0 +1,36 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+scripts/.cache/
+
+# Open models + runtimes are downloaded by `npm run setup` (not committed)
+public/models/
+public/mediapipe/
+
+# Flock server database
+server/*.db
+server/*.db-*
+
+# Local Claude Code settings
+.claude/

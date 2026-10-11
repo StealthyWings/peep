@@ -1,0 +1,40 @@
+{
+  "name": "peep",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "setup": "node scripts/fetch-models.mjs",
+    "build:species": "node scripts/build-species.mjs",
+    "facts": "node scripts/gemma-facts.mjs",
+    "dev": "concurrently -k -n app,flock -c green,yellow \"vite --port 5173 --strictPort\" \"node --watch server/index.mjs --port 8787\"",
+    "dev:app": "vite --port 5173 --strictPort",
+    "server": "node server/index.mjs",
+    "build": "tsc -b && vite build",
+    "start": "npm run build && node server/index.mjs",
+    "lint": "oxlint",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/jost": "^5.3.0",
+    "@mediapipe/tasks-vision": "^1.1.0",
+    "@tensorflow/tfjs": "^4.22.0",
+    "idb": "^8.0.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.6",
+    "oxlint": "^1.81.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  },
+  "engines": {
+    "node": ">=22.13"
+  }
+}

@@ -1,0 +1,53 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Download the open models
+        run: npm run setup
+      - name: Build
+        # FLOCK_URL is an optional repository variable (Settings > Secrets and
+        # variables > Actions > Variables) pointing at a deployed flock server,
+        # e.g. https://peep.onrender.com. Without it, flocks are switched off.
+        run: |
+          export BASE_PATH="/${{ github.event.repository.name }}/"
+          if [ -n "${{ vars.FLOCK_URL }}" ]; then
+            export VITE_FLOCK_URL="${{ vars.FLOCK_URL }}"
+          else
+            export VITE_FLOCK_OFF=1
+          fi
+          npx vite build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

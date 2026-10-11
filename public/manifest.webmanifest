@@ -1,0 +1,29 @@
+{
+  "name": "peep — spot birds, not screens",
+  "short_name": "peep",
+  "description": "Identify birds by photo or song with open AI models that run on your phone — even with no signal.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f3efe3",
+  "theme_color": "#33352a",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "scope": "./"
+}
